@@ -7,7 +7,7 @@ void initializeSAPatches()
 	// fix lock on
 	Memory::memWrite(SA_Addr(0x2AC214), "\x05\x48\x78\x44", 4); // MobileSettings::IsLockOnMode
 	Memory::memWrite(SA_Addr(0x2AC1F0), "\x07\x48\x78\x44", 4); // MobileSettings::IsFreeAimMode
-	//Memory::memWrite(SA_Addr(0x4C6CF4), "\xF0\xB5\x03\xAF", 4); // CPlayerPed::FindWeaponLockOnTarget (crash)
+	// Memory::memWrite(SA_Addr(0x4C6CF4), "\xF0\xB5\x03\xAF", 4); // CPlayerPed::FindWeaponLockOnTarget (crash)
 	Memory::memWrite(SA_Addr(0x4C7CDC), "\x00\x20\xF7\x46", 4); // CPlayerPed::FindNextWeaponLockOnTarget
 
 	// for autoaim

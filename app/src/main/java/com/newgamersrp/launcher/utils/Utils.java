@@ -30,7 +30,7 @@ import okhttp3.Response;
 public class Utils {
     public static File EXTERNAL_DIR = new File(Environment.getExternalStorageDirectory().getAbsolutePath().concat("/Android/data/com.newgamersrp.game/"));
 
-    public static boolean status = false;
+    public static boolean status = true;
     public static boolean beta_status = false;
 
     public static String copyright = "NewGamers RP Launcher\nCopyright © Alyn_SAMPMOBILE";

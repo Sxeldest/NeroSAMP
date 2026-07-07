@@ -23,7 +23,6 @@ import com.downloader.OnDownloadListener;
 import com.downloader.PRDownloader;
 import com.downloader.PRDownloaderConfig;
 import com.joom.paranoid.Obfuscate;
-import com.newgamersrp.game.BuildConfig;
 import com.newgamersrp.launcher.utils.FileData;
 import com.newgamersrp.launcher.utils.Utils;
 
@@ -149,11 +148,11 @@ public class UpdateService extends Service {
                     String responseBody = response.body().string();
                     JSONObject data = new JSONObject(responseBody);
 
-                    Utils.status = data.getBoolean("app_server_status");
-                    Utils.beta_status = data.getBoolean("app_beta_status");
+                    Utils.status = data.optBoolean("app_server_status", true);
+                    Utils.beta_status = data.optBoolean("app_beta_status", false);
 
-                    mUpdateVersion = data.getString("game_version");
-                    mUpdateGameURL = data.getString("game_url");
+                    mUpdateVersion = data.optString("game_version", data.optString("clientVersion", "1.0.0"));
+                    mUpdateGameURL = data.optString("game_url", data.optString("client_url", ""));
                     Log.i("UpdateService", "mUpdateVersion = " + mUpdateVersion);
 
                     mUpdateFiles = new ArrayList<>();
@@ -170,16 +169,16 @@ public class UpdateService extends Service {
                     }
 
                     String data_url = getSharedPreferences("samp_settings", Context.MODE_PRIVATE).getString("files_type", "none").equals("full") ?
-                            data.getString("full_list_url") : data.getString("lite_list_url");
-                    String samp_data_url = data.getString("samp_list_url");
+                            data.optString("full_list_url", data.optString("data_full_url", "")) : data.optString("lite_list_url", data.optString("data_lite_url", ""));
+                    String samp_data_url = data.optString("samp_list_url", data.optString("data_samp_url", ""));
 
                     checkGameFilesUpdate(data_url, samp_data_url);
 
-                    if (!isGamePackageExists()) {
+                    /*if (!isGamePackageExists()) {
                         mGameStatus = UpdateActivity.GameStatus.GameUpdateRequired;
                     } else if (isGameUpdateExists() && !Utils.beta_status && !BuildConfig.DEBUG) {
                         mGameStatus = UpdateActivity.GameStatus.GameUpdateRequired;
-                    } else if (isGameFilesUpdateExists()) {
+                    } else */if (isGameFilesUpdateExists()) {
                         mGameStatus = UpdateActivity.GameStatus.GameFilesUpdateRequired;
                     } else {
                         mGameStatus = UpdateActivity.GameStatus.Updated;
@@ -251,11 +250,11 @@ public class UpdateService extends Service {
     }
 
     public void updateGame() {
-        if (isGameUpdateExists()) {
+        /*if (isGameUpdateExists()) {
             setUpdateStatus(UpdateActivity.UpdateStatus.DownloadGame);
             downloadGame();
             return;
-        }
+        }*/
         setUpdateStatus(UpdateActivity.UpdateStatus.Undefined);
         File apkFile = new File(Utils.EXTERNAL_DIR, GAME_DOWNLOAD_NAME);
         Message finishMsg = Message.obtain(mInHandler, 2);
