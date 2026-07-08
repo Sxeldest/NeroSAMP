@@ -1,9 +1,4 @@
 SA-MP Mobile Chat Window Offsets:
 --------------------------------
-Chat::Constructor: 0x12CA24
-Chat::Render: 0x12D7B8
-Chat::Render_Scrollbar_Drawing_Call: 0x12D8B6
-Chat::Render_Message_Loop_Helper: 0x12D98C
-Generic_DrawFilledRect: 0x12AB98
+Chat::Render_Scrollbar_Drawing_Call: 0x12D8B6 (2 words)
 --------------------------------
-Patch: NOP at 0x12D8B6 (2 words) to disable scrollbar rendering.
