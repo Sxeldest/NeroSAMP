@@ -33,6 +33,9 @@ void initializeSAMPPatches()
 	Memory::nop(SAMP_Addr(0x141DCA), 10);
 	Memory::nop(SAMP_Addr(0x141DE0), 2);
 
+	// remove chat scrollbar
+	Memory::nop(SAMP_Addr(0x12D8B6), 2);
+
 	// fix veh nitro button
 	Memory::nop(SAMP_Addr(0x10379E), 2);
 
