@@ -38,7 +38,8 @@ set_target_properties(Opus PROPERTIES IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/libr
 target_link_libraries(${PROJECT_NAME} INTERFACE
         dobby
         KittyMemory
-        Opus)
+        Opus
+        freetype)
 
 target_include_directories(${PROJECT_NAME} INTERFACE
         "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>")
@@ -46,6 +47,10 @@ target_include_directories(${PROJECT_NAME} INTERFACE
 target_include_directories(${PROJECT_NAME} INTERFACE
         "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>")
 
+target_include_directories(${PROJECT_NAME} INTERFACE
+        "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/freetype/include>")
+
 add_subdirectory(memory/Dobby)
 add_subdirectory(memory/KittyMemory)
 add_subdirectory(ttmath)
+add_subdirectory(freetype)

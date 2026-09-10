@@ -1,5 +1,6 @@
 #include "../main.h"
 #include "imguiwrapper.h"
+#include <imgui/imgui_freetype.h>
 #include "uisettings.h"
 #include "../settings.h"
 #include "../samp.h"
@@ -52,9 +53,8 @@ bool ImGuiWrapper::initialize()
 	builder.BuildRanges(ranges);
 
 	ImFontConfig fontCfg;
-	fontCfg.OversampleV = 3;
-	fontCfg.OversampleH = 3;
     fontCfg.RasterizerMultiply = 1.5f;
+	fontCfg.RasterizerFlags = ImGuiFreeType::NoAutoHint;
 
 	ImFont* font = io.Fonts->AddFontFromFileTTF(m_fontPath.c_str(), UISettings::fontSize(), &fontCfg, ranges->Data);
 
@@ -70,6 +70,8 @@ bool ImGuiWrapper::initialize()
 		LOGE("Failed to load font %s", weap_font_path.c_str());
 		return false;
 	}
+
+	ImGuiFreeType::BuildFontAtlas(io.Fonts);
 
 	createFontTexture();
 
